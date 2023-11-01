@@ -27,5 +27,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - run: yarn install
+    - name: Start Xvfb
+      run: Xvfb :99 -ac -screen 0 1280x1024x16 &
+
+    - name: Run tests
+      env:
+        DISPLAY: :99
+      run: yarn test
   #  - run: yarn build --if-present
-    - run: yarn test
